@@ -1,0 +1,18 @@
+{
+  "name": "xclaude-dev-tools",
+  "description": "Claude Code slash commands for development workflows — commit, review, PR, testing, and more.",
+  "version": "1.0.0",
+  "author": {
+    "name": "KeyValue"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "dev-tools",
+    "code-review",
+    "git",
+    "commit",
+    "pull-request"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "keyvalue-tools",
+  "owner": {
+    "name": "KeyValue"
+  },
+  "metadata": {
+    "description": "KeyValue's Claude Code plugins for development workflows"
+  },
+  "plugins": [
+    {
+      "name": "xclaude-dev-tools",
+      "source": "./plugins/xclaude-dev-tools",
+      "description": "Slash commands for dev workflows — commit, review, PR, testing, and more."
+    }
+  ]
+}
