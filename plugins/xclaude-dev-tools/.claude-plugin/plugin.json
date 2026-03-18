@@ -12,8 +12,7 @@
     "code-review",
     "git",
     "commit",
-    "pull-request",
-    "unknown"
+    "pull-request"
   ],
   "license": "MIT"
 }
