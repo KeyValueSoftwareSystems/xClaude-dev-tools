@@ -1,6 +1,19 @@
-Review a GitHub Pull Request using the same review criteria defined in `.claude/commands/review.md`, but applied to a PR diff instead of the local git diff.
+Review a GitHub Pull Request using the same review criteria defined in the `/review` command, but applied to a PR diff instead of the local git diff.
 
 **Input**: `$ARGUMENTS`
+
+## Step 0: Read project conventions (REQUIRED)
+
+Check if `CLAUDE.md` exists in the project root.
+
+**If CLAUDE.md does NOT exist**, stop immediately and output:
+> **⚠ CLAUDE.md not found.** This plugin requires a `CLAUDE.md` file in your project root that defines your project's conventions (tech stack, architecture, naming rules, etc.).
+>
+> Run **`/setup`** to auto-generate one from your codebase, then re-run this command.
+
+Do NOT proceed without CLAUDE.md.
+
+**If CLAUDE.md exists**, read it and extract the project's tech stack, conventions, and standards. Apply these during the review.
 
 ## Step 1: Resolve the PR
 
@@ -21,11 +34,20 @@ Announce: **Reviewing PR #<number>: <title>** by <author> (`<head>` → `<base>`
 
 ## Step 3: Review the diff
 
-Read `.claude/commands/review.md` and apply all review dimensions listed there to the PR diff. For ambiguous diffs (new classes, signature changes), read the full file for context.
+Apply all review dimensions from the `/review` command to the PR diff:
+1. Correctness
+2. Security
+3. Architecture & Boundaries (per CLAUDE.md conventions)
+4. Testing Gaps
+5. Logging & Observability
+6. Naming & Clarity (per CLAUDE.md conventions)
+7. Unnecessary Changes
+
+For ambiguous diffs (new files, signature changes), read the full file for context.
 
 ## Step 4: Output the review
 
-Use the same output format from `review.md` (`[SEVERITY] file:line — description`), then end with:
+Use the same output format (`[SEVERITY] file:line — description`), then end with:
 
 ```
 ## Summary

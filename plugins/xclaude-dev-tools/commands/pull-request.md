@@ -6,6 +6,24 @@ Before doing anything, announce clearly to the user:
 
 **Input**: `$ARGUMENTS` (optional: base branch)
 
+## Step 0: Read project conventions (REQUIRED)
+
+Check if `CLAUDE.md` exists in the project root.
+
+**If CLAUDE.md does NOT exist**, stop immediately and output:
+> **⚠ CLAUDE.md not found.** This plugin requires a `CLAUDE.md` file in your project root that defines your project's conventions (tech stack, PR requirements, etc.).
+>
+> Run **`/setup`** to auto-generate one from your codebase, then re-run this command.
+
+Do NOT proceed without CLAUDE.md.
+
+**If CLAUDE.md exists**, read it and extract:
+- PR conventions, templates, or checklists the project uses
+- Branch naming or workflow conventions
+- Any project-specific review requirements
+
+Apply these conventions when drafting the PR.
+
 ## Step 1: Resolve base branch
 
 If `$ARGUMENTS` is provided, use it as the base branch directly.
@@ -61,7 +79,7 @@ Read all commits and the full diff to understand the change. Then draft:
 
 **Title:** Short, imperative, under 70 chars. Prefix with type if the branch name has one (e.g., `feat:`, `fix:`).
 
-**Body:** Use this template:
+**Body:** Use this template, but adapt sections based on the project's conventions and tech stack:
 
 ```
 ## Summary
@@ -74,29 +92,15 @@ Read all commits and the full diff to understand the change. Then draft:
 - [ ] Config/infra change
 - [ ] Documentation
 
-## Risk Assessment
-- **Blast radius**: <which modules are affected, what could break>
-- **Rollback plan**: <how to revert if something goes wrong>
-- **Data migration**: Yes/No
-
 ## Testing Evidence
-- **Automated tests**: <new/modified test classes>
+- **Automated tests**: <new/modified test files>
 - **Edge cases covered**: <what boundary conditions are tested>
-
-## API Changes (if applicable)
-- [ ] API documentation annotations added/updated
-- [ ] Security configuration reviewed
-- [ ] Request validation added
-- [ ] Error responses follow consistent format
 
 ## Checklist
 - [ ] No secrets, credentials, or PII in diff
 - [ ] No TODO/FIXME without a linked ticket
 - [ ] No unrelated formatting changes mixed in
 - [ ] PR is under 500 lines (if over, explain why)
-- [ ] Database migrations are backward-compatible
-- [ ] No network calls inside @Transactional methods
-- [ ] Module boundaries respected
 
 ## AI Disclosure
 - **Agent used**: Claude Code
@@ -104,6 +108,8 @@ Read all commits and the full diff to understand the change. Then draft:
 ```
 
 Fill in the template based on the actual diff. Check the boxes that apply. Leave unchecked boxes that don't apply or need attention.
+
+If the project's CLAUDE.md defines additional checklist items or PR requirements, include them.
 
 ## Step 6: Confirm with user
 

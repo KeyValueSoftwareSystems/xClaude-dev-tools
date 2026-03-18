@@ -36,7 +36,7 @@ Read the existing PR body. Then:
 - Update the **Summary** section to reflect ALL commits (add bullets for new work, reword existing ones if needed)
 - Update the **Testing Evidence** section if new test files appear in the stat
 - Update the **Checklist** — re-check line count from stat
-- Leave all other sections unchanged unless a commit clearly affects them (e.g., a migration file in stat → update migration checkbox)
+- Leave all other sections unchanged unless a commit clearly affects them
 
 Do NOT rewrite the entire body from scratch. Patch only the sections that changed.
 

@@ -1,5 +1,22 @@
 Generate a well-structured commit for the current staged and unstaged changes.
 
+## Step 0: Read project conventions (REQUIRED)
+
+Check if `CLAUDE.md` exists in the project root.
+
+**If CLAUDE.md does NOT exist**, stop immediately and output:
+> **⚠ CLAUDE.md not found.** This plugin requires a `CLAUDE.md` file in your project root that defines your project's conventions (tech stack, naming rules, commit format, etc.).
+>
+> Run **`/setup`** to auto-generate one from your codebase, then re-run this command.
+
+Do NOT proceed without CLAUDE.md.
+
+**If CLAUDE.md exists**, read it and extract:
+- Commit message format and conventions (e.g., conventional commits, prefixes, scopes)
+- Any project-specific commit rules or guidelines
+
+Use these conventions throughout.
+
 ## Step 1: Analyze changes
 
 Run these in parallel:
@@ -10,7 +27,7 @@ Run these in parallel:
 ## Step 2: Let user select files to commit
 
 - List all modified, staged, and untracked files
-- Flag any files that look like secrets (.env, credentials, tokens) with a warning
+- Flag any files that look like secrets (.env, credentials, tokens, API keys) with a warning
 - Use the **AskUserQuestion tool** with `multiSelect: true` to let the user pick which files to include
   - Show each file as an option with its status (modified/new/deleted)
   - Pre-recommend files that look related to each other
@@ -19,26 +36,12 @@ Run these in parallel:
 
 ## Step 3: Draft commit message
 
-Analyze the staged changes and draft a commit message:
-- Use conventional commit format: `<type>(<scope>): <description>`
+Analyze the staged changes and draft a commit message following the project's conventions (from CLAUDE.md or git log style). If no convention is established, use:
+- Format: `<type>(<scope>): <description>`
 - Types: feat, fix, refactor, test, chore, docs, perf, ci
-- Scope: the module or area changed (e.g., common, customer, customerapi, build)
+- Scope: the module or area changed (infer from directory structure and file paths)
 - Description: concise, imperative mood, focuses on WHY not WHAT
 - Add body (separated by blank line) only if the change needs explanation
-
-Examples:
-```
-feat(customer): add step-up authentication filter
-
-Adds @StepUpAuth annotation and filter that validates elevated JWT
-claims before granting access to sensitive endpoints.
-```
-```
-fix(common): prevent race condition in operation ID consumption
-```
-```
-test(common): add unit tests for AwsSqsService message attributes
-```
 
 ## Step 4: Confirm with user
 
@@ -46,8 +49,8 @@ Output the summary as plain text, then use **AskUserQuestion tool** in the same 
 
 ```
 **Files to commit:**
-- path/to/file1.java (modified)
-- path/to/file2.java (new)
+- path/to/file1 (modified)
+- path/to/file2 (new)
 
 **Proposed commit message:**
 
